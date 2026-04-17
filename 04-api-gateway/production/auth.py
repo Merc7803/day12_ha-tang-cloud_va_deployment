@@ -37,8 +37,8 @@ def create_token(username: str, role: str) -> str:
     payload = {
         "sub": username,           # subject (user identifier)
         "role": role,
-        "iat": datetime.now(timezone.utc),  # issued at
-        "exp": datetime.now(timezone.utc) + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES),
+        "iat": int(time.time()),   # issued at
+        "exp": int(time.time()) + (ACCESS_TOKEN_EXPIRE_MINUTES * 60),
     }
     return jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
 

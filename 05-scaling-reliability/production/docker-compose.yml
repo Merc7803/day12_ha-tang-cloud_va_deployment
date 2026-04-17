@@ -8,17 +8,14 @@
 # bởi instance khác nhau, nhưng session vẫn liên tục vì Redis!
 # ============================================================
 
-version: "3.9"
-
 services:
-
   # ──────────────────────────────────────
   # Agent — scale lên 3 instances
   # ──────────────────────────────────────
   agent:
     build:
       context: ../..
-      dockerfile: 05-scaling-reliability/advanced/Dockerfile
+      dockerfile: 05-scaling-reliability/production/Dockerfile
     environment:
       - REDIS_URL=redis://redis:6379/0
       - ENVIRONMENT=demo
@@ -65,7 +62,7 @@ services:
   nginx:
     image: nginx:alpine
     ports:
-      - "8080:80"
+      - "8081:80"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
     depends_on:

@@ -13,8 +13,13 @@ Chạy sau khi docker compose up:
 import json
 import urllib.request
 import urllib.error
+import sys
+import io
 
-BASE_URL = "http://localhost:8080"
+# Hỗ trợ hiển thị tiếng Việt trên Console Windows
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+
+BASE_URL = "http://localhost:8081"
 session_id = None
 
 

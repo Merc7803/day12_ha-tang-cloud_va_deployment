@@ -72,10 +72,15 @@ docker compose -f 02-docker/production/docker-compose.yml down
 ### So sánh image size:
 
 ```bash
-# Basic vs Advanced
+# Basic vs Advanced (MacOS/Linux)
 docker images | grep agent
 # agent-basic    ~  800 MB  ← python:3.11 base
 # agent-advanced ~  160 MB  ← python:3.11-slim + multi-stage
+
+# Basic vs Advanced (Windows PowerShell)
+docker images | findstr agent
+# agent-develop    ~  1.66 GB
+# production-agent ~  240 MB
 ```
 
 ---

@@ -54,9 +54,13 @@ python app.py
 
 In another terminal:
 ```bash
+# MacOS/Linux
 curl http://localhost:8000/ask -X POST \
   -H "Content-Type: application/json" \
   -d '{"question": "Hello"}'
+
+# Windows PowerShell (Dùng lệnh này nếu bạn dùng Windows)
+curl.exe "http://localhost:8000/ask?question=Hello" -X POST
 ```
 
 **Expected:** You get a response! 🎉
@@ -77,9 +81,13 @@ docker run -p 8000:8000 my-agent
 
 Test again:
 ```bash
+# MacOS/Linux
 curl http://localhost:8000/ask -X POST \
   -H "Content-Type: application/json" \
   -d '{"question": "What is Docker?"}'
+
+# Windows PowerShell
+curl.exe "http://localhost:8000/ask?question=What+is+Docker?" -X POST
 ```
 
 **Expected:** Same response, but now in a container! 🐳
@@ -111,9 +119,13 @@ railway domain
 
 Test it:
 ```bash
+# MacOS/Linux
 curl https://your-agent.railway.app/ask -X POST \
   -H "Content-Type: application/json" \
   -d '{"question": "Am I on the cloud?"}'
+
+# Windows PowerShell
+curl.exe "https://your-agent.railway.app/ask?question=Am+I+on+the+cloud?" -X POST
 ```
 
 **Expected:** Response from the cloud! 🌐
@@ -132,18 +144,26 @@ python app.py
 
 Test without key (should fail):
 ```bash
+# MacOS/Linux
 curl http://localhost:8000/ask -X POST \
   -H "Content-Type: application/json" \
   -d '{"question": "Hello"}'
+
+# Windows PowerShell
+curl.exe "http://localhost:8000/ask?question=Hello" -X POST
 # Expected: 401 Unauthorized
 ```
 
 Test with key (should work):
 ```bash
+# MacOS/Linux
 curl http://localhost:8000/ask -X POST \
   -H "X-API-Key: my-secret-key" \
   -H "Content-Type: application/json" \
   -d '{"question": "Hello"}'
+
+# Windows PowerShell
+curl.exe "http://localhost:8000/ask?question=Hello" -X POST -H "X-API-Key: my-secret-key"
 # Expected: 200 OK
 ```
 

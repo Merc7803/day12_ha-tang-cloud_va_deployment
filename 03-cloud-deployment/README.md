@@ -26,7 +26,8 @@ railway/
 1. `railway login` (hoặc qua browser)
 2. `railway init`
 3. `railway up`
-4. Nhận URL dạng `https://your-app.up.railway.app`
+4. `railway domain`
+5. Nhận URL dạng `https://your-app.up.railway.app`
 
 ---
 

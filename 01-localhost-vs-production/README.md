@@ -50,6 +50,8 @@ pip install -r requirements.txt
 cp .env.example .env
 # Sửa .env nếu cần
 python app.py
+# Truy cập: http://localhost:8000/ (Windows/Mac)
+# Lưu ý: Server log sẽ hiển thị 0.0.0.0:8000 nhưng bạn hãy dùng localhost trên trình duyệt.
 ```
 
 ### So sánh với Basic:

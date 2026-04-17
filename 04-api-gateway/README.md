@@ -19,19 +19,42 @@ develop/
 
 ### Chạy thử
 ```bash
-cd basic
+cd develop
 pip install -r requirements.txt
+
+# Windows PowerShell:
+$env:AGENT_API_KEY="my-secret-key"
+python -m uvicorn app:app --host 0.0.0.0 --port 8000 --reload
+
+# Linux/MacOS:
 AGENT_API_KEY=my-secret-key python app.py
+
+# Test (Windows PowerShell):
+$authHeader = @{"X-API-Key" = "my-secret-key"}
+Invoke-RestMethod -Uri "http://localhost:8000/ask" -Method Post -Headers $authHeader -Body '{"question": "hello"}' -ContentType "application/json"
+
+
 
 # Test với key hợp lệ
 curl -H "X-API-Key: my-secret-key" http://localhost:8000/ask \
      -X POST -H "Content-Type: application/json" \
      -d '{"question": "hello"}'
+# Với window
+# curl.exe "http://localhost:8000/ask?question=hello" -H "X-API-Key: my-secret-key" -X POST
 
 # Test không có key → 401
 curl http://localhost:8000/ask -X POST \
      -H "Content-Type: application/json" \
      -d '{"question": "hello"}'
+# Với window
+# curl.exe "http://localhost:8000/ask?question=hello" -X POST
+
+# Test với key sai → 403
+curl -H "X-API-Key: wrong-key" http://localhost:8000/ask \
+     -X POST -H "Content-Type: application/json" \
+     -d '{"question": "hello"}'
+# Với window
+# curl.exe "http://localhost:8000/ask?question=hello" -H "X-API-Key: wrong-key" -X POST
 ```
 
 ---
@@ -58,15 +81,28 @@ python app.py
 curl -X POST http://localhost:8000/auth/token \
      -H "Content-Type: application/json" \
      -d '{"username": "student", "password": "demo123"}'
+# Với window
+# $auth = Invoke-RestMethod -Uri "http://localhost:8000/auth/token" -Method Post -Body '{"username":"student","password":"demo123"}' -ContentType "application/json"
 
 # Dùng token
 curl -H "Authorization: Bearer <token>" \
      http://localhost:8000/ask \
      -X POST -H "Content-Type: application/json" \
      -d '{"question": "what is docker?"}'
+# Với window
+# Invoke-RestMethod -Uri "http://localhost:8000/ask" -Method Post -Headers @{Authorization="Bearer $($auth.access_token)"} -Body '{"question":"what is docker?"}' -ContentType "application/json"
 
 # Test rate limit: spam 20 requests liên tiếp
 python test_advanced.py --test rate-limit
+# Với window
+# for ($i=1; $i -le 12; $i++) {
+#     try {
+#         $res = Invoke-RestMethod -Uri "http://localhost:8000/ask" -Method Post -Headers @{Authorization="Bearer $($auth.access_token)"} -Body '{"question":"test"}' -ContentType "application/json"
+#         Write-Host "Lần $i: OK" -ForegroundColor Cyan
+#     } catch {
+#         Write-Host "Lần $i: Rate Limited!" -ForegroundColor Red
+#     }
+# }
 ```
 
 ---
